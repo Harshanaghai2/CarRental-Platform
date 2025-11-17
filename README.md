@@ -29,9 +29,9 @@ A small Node.js + Express application for managing car rentals. The app uses EJS
 
 3. Create a `.env` file in the project root and set the following variables (example):
 
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/car_rental
-   JWT_SECRET=your_jwt_secret_here
+  PORT=5000
+  MONGO_URI=mongodb://localhost:27017/car_rental
+  JWT_SECRET=your_jwt_secret_here
 
 4. Run the app:
 
@@ -58,6 +58,24 @@ The app will be available at http://localhost:3000 (or the port you set in `.env
 - `middleware/` - Middleware (`auth.js` for protecting routes)
 - `public/` - Static assets (CSS & client JS)
 - `views/` - EJS templates for server-side rendering
+
+Frontend (Next.js)
+
+This project includes a new React/Next.js frontend in the `frontend/` folder that replaces the previous EJS views. The backend now serves API endpoints only. To run the frontend in development:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The Next.js dev server runs on `http://localhost:3000` by default and talks to the backend API (default `http://localhost:5000`).
+
+Optional: to point the frontend at a different backend URL, create a `.env.local` in the `frontend/` folder and set:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
 
 ## Environment & configuration
 

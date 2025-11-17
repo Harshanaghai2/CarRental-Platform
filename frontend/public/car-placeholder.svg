@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="16" fill="#EDF2F7" />
+  <g transform="translate(120 140)">
+    <rect x="0" y="200" width="960" height="260" rx="12" fill="#E2E8F0" />
+    <circle cx="150" cy="460" r="60" fill="#CBD5E1" />
+    <circle cx="810" cy="460" r="60" fill="#CBD5E1" />
+    <rect x="80" y="120" width="760" height="180" rx="40" fill="#C6D5FF" />
+    <rect x="140" y="40" width="560" height="120" rx="20" fill="#FFFFFF" opacity="0.6" />
+    <g transform="translate(0,0)" fill="#4A5568" opacity="0.75">
+      <rect x="120" y="220" width="640" height="16" rx="8" />
+      <rect x="120" y="250" width="480" height="12" rx="6" />
+    </g>
+  </g>
+  <text x="600" y="720" font-family="Inter, Arial, sans-serif" font-size="20" fill="#718096" text-anchor="middle">Car image placeholder</text>
+</svg>

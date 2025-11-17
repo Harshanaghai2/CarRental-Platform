@@ -7,11 +7,7 @@ require("dotenv").config();
 
 const app = express();
 
-// Set up EJS
-app.set("view engine", "ejs");
-app.set("views", "./views");
-
-// Serve static files
+// Serve static files (public assets)
 app.use(express.static("public"));
 
 app.use(bodyParser.json());
@@ -27,9 +23,8 @@ const carRoutes = require("./Routes/carRoutes");
 const bookingRoutes = require("./Routes/bookingRoutes");
 
 const authRoutes = require("./Routes/authRoutes");
-const viewRoutes = require("./Routes/viewRoutes");
 
-app.use("/", viewRoutes);
+// API routes
 app.use("/auth", authRoutes);
 
 app.use("/users", userRoutes);
@@ -40,6 +35,11 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
+
+// Basic root to indicate API-only server (frontend is handled separately)
+app.get("/", (req, res) => {
+  res.json({ message: "API server - frontend is served separately (see /frontend)." });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

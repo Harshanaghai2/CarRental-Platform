@@ -18,7 +18,18 @@ router.post("/", auth(["admin"]), async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const cars = await Car.find();
+    // Support filtering by location, availability, type and price range
+    const { location, available, type, minPrice, maxPrice } = req.query;
+    const filter = {};
+    if (location) filter.location = { $regex: location, $options: "i" };
+    if (type) filter.type = { $regex: `^${type}$`, $options: "i" };
+    if (minPrice || maxPrice) {
+      filter.pricePerDay = {};
+      if (minPrice) filter.pricePerDay.$gte = Number(minPrice);
+      if (maxPrice) filter.pricePerDay.$lte = Number(maxPrice);
+    }
+
+    const cars = await Car.find(filter);
 
     // Check booking status for each car
     const carsWithAvailability = await Promise.all(
@@ -40,7 +51,10 @@ router.get("/", async (req, res) => {
       })
     );
 
-    res.json(carsWithAvailability);
+    // If client requested only available cars, filter them
+    const result = available === "true" ? carsWithAvailability.filter(c => c.availability) : carsWithAvailability;
+
+    res.json(result);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
